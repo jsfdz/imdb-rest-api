@@ -1,10 +1,10 @@
 import { Sequelize } from 'sequelize'
-import { NAME_DB, PASS_DB, USER_DB } from '../config/env.config'
+import { HOST_DB, NAME_DB, PASS_DB, USER_DB } from '../config/env.config'
 
 export const sequelize = new Sequelize(
   NAME_DB, USER_DB, PASS_DB,
   {
-    host: 'localhost',
+    host: HOST_DB,
     dialect: 'postgres'
   })
 
