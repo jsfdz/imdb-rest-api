@@ -1,0 +1,278 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "IMDB REST API",
+        "version": "1.0",
+        "description": "REST API para poder obtener la información acerca de películas, series, actores y directores del cine."
+    },
+    "servers": [
+        {
+            "url": "http://localhost:9000/api/v1",
+            "description": "Development"
+        },
+        {
+            "url": "https://myapp.heroku/api/v1",
+            "description": "Production"
+        }
+    ],
+    "paths": {
+        "/actors": {
+            "get": {
+                "description": "Obtener todos los actores de la DB",
+                "tags": [
+                    "Actors"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de actores"
+                    }
+                }
+            },
+            "post": {
+                "description": "Crear un actor",
+                "tags": [
+                    "Actors"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Actor"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Se ha creado un actor satisfactoriamente"
+                    }
+                }
+            }
+        },
+        "/actors/{id}": {
+            "get": {
+                "description": "Obtener un Actor por ID",
+                "tags": [
+                    "Actors"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "integer",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Autor Encontrado"
+                    }
+                }
+            },
+            "put": {
+                "description": "Actualizar un actor",
+                "tags": [
+                    "Actors"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "integer",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Actor"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Se ha actualizado un actor satisfactoriamente"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Eliminar a un actor",
+                "tags": [
+                    "Actors"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "integer",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Autor Eliminado"
+                    }
+                }
+            }
+        },
+        "/directors": {
+            "get": {
+                "description": "Obtener todos los directores de la DB",
+                "tags": [
+                    "Directors"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Lista de directores"
+                    }
+                }
+            },
+            "post": {
+                "description": "Crear un director",
+                "tags": [
+                    "Directors"
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Director"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Se ha creado un director satisfactoriamente"
+                    }
+                }
+            }
+        },
+        "/directors/{id}": {
+            "get": {
+                "description": "Obtener un director por ID",
+                "tags": [
+                    "Directors"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "integer",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Director Encontrado"
+                    }
+                }
+            },
+            "put": {
+                "description": "Actualizar un director",
+                "tags": [
+                    "Directors"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "integer",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Director"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Se ha actualizado un director satisfactoriamente"
+                    }
+                }
+            },
+            "delete": {
+                "description": "Eliminar a un director",
+                "tags": [
+                    "Directors"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "type": "integer",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Director Eliminado"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Actor": {
+                "properties": {
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "dob": {
+                        "type": "string",
+                        "description": "Date of birth",
+                        "example": "1990-02-01"
+                    },
+                    "biography": {
+                        "type": "string"
+                    },
+                    "profilePhoto": {
+                        "type": "string",
+                        "description": "image URL",
+                        "example": "https://apihandyman.io/images/commons/openapi/openapi-map.png"
+                    },
+                    "active": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "Director": {
+                "properties": {
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "dob": {
+                        "type": "string",
+                        "description": "Date of birth",
+                        "example": "1990-02-01"
+                    },
+                    "biography": {
+                        "type": "string"
+                    },
+                    "profilePhoto": {
+                        "type": "string",
+                        "description": "image URL",
+                        "example": "https://apihandyman.io/images/commons/openapi/openapi-map.png"
+                    },
+                    "active": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        }
+    }
+}
