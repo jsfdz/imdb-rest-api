@@ -9,10 +9,10 @@ export const Users = sequelize.define('users', {
     type: DataTypes.STRING
   },
   email: {
-    type: DataTypes.DATE
+    type: DataTypes.STRING
   },
   password: {
-    type: DataTypes.TEXT
+    type: DataTypes.STRING
   },
   resetToken: {
     type: DataTypes.STRING
