@@ -5,7 +5,14 @@ export const sequelize = new Sequelize(
   NAME_DB, USER_DB, PASS_DB,
   {
     host: HOST_DB,
-    dialect: 'postgres'
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
+
   })
 
 export const connect = async () => {
