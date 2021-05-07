@@ -1,5 +1,6 @@
+import { hash, compare } from 'bcrypt'
 import { Users } from '../models/user.model'
-import { hash } from 'bcrypt'
+import { generateToken } from '../auth/jwt.auth'
 
 export const getAllUsers = async (req, res) => {
   const result = await Users.findAll({ raw: true })
@@ -47,5 +48,19 @@ export const deleteUser = async (req, res) => {
   res.status(200).json({
     satusCode: 200,
     message: 'User Deleted'
+  })
+}
+
+export const login = async (req, res) => {
+  const { email, password } = req.body
+  const user = await Users.findOne({ where: { email }, raw: true })
+  const passwordCorrect = await compare(password, user.password)
+  console.log(passwordCorrect)
+  const token = generateToken({ user: { id: user.id } })
+  res.status(200).json({
+    statusCode: 200,
+    access: true,
+    token,
+    message: 'Bienvenido'
   })
 }
