@@ -20,8 +20,8 @@ export const getDirector = async (req, res) => {
 }
 
 export const createDirector = async (req, res) => {
-  const { firstName, lastName, dob, biography, profilePhoto } = req.body
-  await Directors.create({ firstName, lastName, dob, biography, profilePhoto })
+  const { firstName, lastName, dob, biography } = req.body
+  await Directors.create({ firstName, lastName, dob, biography, profilePhoto: req.file.path })
   res.status(200).json({
     satusCode: 200,
     message: 'Director Created'
@@ -30,8 +30,8 @@ export const createDirector = async (req, res) => {
 
 export const updateDirector = async (req, res) => {
   const { id } = req.params
-  const { firstName, lastName, dob, biography, profilePhoto } = req.body
-  await Directors.update({ firstName, lastName, dob, biography, profilePhoto }, { where: { id } })
+  const { firstName, lastName, dob, biography } = req.body
+  await Directors.update({ firstName, lastName, dob, biography, profilePhoto: req.file.path }, { where: { id } })
   res.status(200).json({
     satusCode: 200,
     message: 'Director Updated'

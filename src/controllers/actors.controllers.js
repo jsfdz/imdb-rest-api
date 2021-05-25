@@ -20,8 +20,8 @@ export const getActor = async (req, res) => {
 }
 
 export const createActor = async (req, res) => {
-  const { firstName, lastName, dob, biography, profilePhoto } = req.body
-  await Actors.create({ firstName, lastName, dob, biography, profilePhoto })
+  const { firstName, lastName, dob, biography } = req.body
+  await Actors.create({ firstName, lastName, dob, biography, profilePhoto: req.file.path })
   res.status(200).json({
     satusCode: 200,
     message: 'Actor Created'
@@ -30,8 +30,8 @@ export const createActor = async (req, res) => {
 
 export const updateActor = async (req, res) => {
   const { id } = req.params
-  const { firstName, lastName, dob, biography, profilePhoto } = req.body
-  await Actors.update({ firstName, lastName, dob, biography, profilePhoto }, { where: { id } })
+  const { firstName, lastName, dob, biography } = req.body
+  await Actors.update({ firstName, lastName, dob, biography, profilePhoto: req.file.path }, { where: { id } })
   res.status(200).json({
     satusCode: 200,
     message: 'Actor Updated'

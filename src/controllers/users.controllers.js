@@ -1,6 +1,7 @@
 import { hash, compare } from 'bcrypt'
 import { Users } from '../models/user.model'
 import { generateToken } from '../auth/jwt.auth'
+import { ErrorHandler } from '../errors/handler.error'
 
 export const getAllUsers = async (req, res) => {
   const result = await Users.findAll({ raw: true })
@@ -23,10 +24,13 @@ export const getUser = async (req, res) => {
 
 export const createUser = async (req, res) => {
   const { firstName, lastName, email, password, resetToken } = req.body
+  const userExist = await Users.findOne({ where: { email } })
+  if (userExist) throw new ErrorHandler(400, 'User already exist')
   const hashPassword = await hash(password, 10)
   await Users.create({ firstName, lastName, email, password: hashPassword, resetToken })
   res.status(200).json({
     satusCode: 200,
+    access: true,
     message: 'User Created'
   })
 }
@@ -54,8 +58,9 @@ export const deleteUser = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body
   const user = await Users.findOne({ where: { email }, raw: true })
+  if (!user) throw new ErrorHandler(404, 'Invalid Credentials')
   const passwordCorrect = await compare(password, user.password)
-  console.log(passwordCorrect)
+  if (passwordCorrect) throw new ErrorHandler(400, 'Invalid Credentials')
   const token = generateToken({ user: { id: user.id } })
   res.status(200).json({
     statusCode: 200,
