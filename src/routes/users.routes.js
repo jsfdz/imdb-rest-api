@@ -10,6 +10,6 @@ router
   .post('/', handlerExceptionRoute(createUser))
   .put('/:id', updateUser)
   .delete('/:id', deleteUser)
-  .post('/signin/login', login)
+  .post('/signin/login', handlerExceptionRoute(login))
 
 export default router

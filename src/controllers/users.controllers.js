@@ -60,7 +60,7 @@ export const login = async (req, res) => {
   const user = await Users.findOne({ where: { email }, raw: true })
   if (!user) throw new ErrorHandler(404, 'Invalid Credentials')
   const passwordCorrect = await compare(password, user.password)
-  if (passwordCorrect) throw new ErrorHandler(400, 'Invalid Credentials')
+  if (!passwordCorrect) throw new ErrorHandler(400, 'Invalid Credentials')
   const token = generateToken({ user: { id: user.id } })
   res.status(200).json({
     statusCode: 200,

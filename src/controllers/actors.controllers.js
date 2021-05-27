@@ -21,6 +21,7 @@ export const getActor = async (req, res) => {
 
 export const createActor = async (req, res) => {
   const { firstName, lastName, dob, biography } = req.body
+  console.log(req.file)
   await Actors.create({ firstName, lastName, dob, biography, profilePhoto: req.file.path })
   res.status(200).json({
     satusCode: 200,
